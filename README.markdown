@@ -18,6 +18,11 @@ Include the script _cookie\_monster.js_. This should make `cookieMonster` availa
 
     cookieMonster.fetch( name );
 
+### Get all cookies
+
+    cookieMonster.fetchAll();
+
 ### Remove cookie
 
     cookieMonster.eat( name );
+

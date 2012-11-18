@@ -13,16 +13,27 @@
         },
 
         fetch: function( name ) {
-            var nameEq = [ name, '=' ].join( '' );
-            var cookies = document.cookie.split( /[;,] / );
-            var cookies_length = cookies.length;
-            for ( var i = 0; i < cookies_length; i++ ) {
-                var c = cookies[i];
-                if ( c.indexOf( nameEq ) === 0 ) {
-                    return c.substring( nameEq.length, c.length );
-                }
+            var cookies = this.fetchAll();
+            if ( cookies[name] ) {
+                return cookies[name];
             }
             return false;
+        },
+
+        fetchAll: function() {
+            var jar = document.cookie.split( /[;,] / );
+            var jar_size = jar.length;
+            var cookies = {};
+            if ( jar_size > 1 ) {
+                var cookie;
+                var name;
+                for ( var i = 0; i < jar_size; i++ ) {
+                    cookie = jar[i];
+                    name = /^[^=]*/.exec( cookie )[0];
+                    cookies[name] = cookie.substring( name.length + 1, cookie.length );
+                }
+            }
+            return cookies;
         },
 
         eat: function( name ) {

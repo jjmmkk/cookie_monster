@@ -20,21 +20,28 @@
                 var state = function() {
                     c( '`document.cookie`:', 'info' );
                     c( document.cookie );
+                    c( '`fetchAll()`', 'info' );
+                    c( cm.fetchAll() );
                 };
 
 
                 state();
 
-                c( 'Set cookie', 'warn' );
-                cm.bake( 'test', 'test_val', 1 );
+                c( 'Set cookies', 'warn' );
+                cm.bake( 'test1', 'test_val1', 1 );
+                cm.bake( 'test2', 'test_val2', 1 );
 
                 state();
 
-                c( 'Show cookie value', 'warn' );
-                c( cm.fetch( 'test' ) );
+                c( 'Show value of cookies', 'warn' );
+                c( cm.fetch( 'test1' ) );
+                c( cm.fetch( 'test2' ) );
+                c( 'Attempt to get value of cookie which does not exist', 'warn' );
+                c( cm.fetch( 'test_does_not_exist' ) );
 
-                c( 'Remove cookie', 'warn' );
-                cm.eat( 'test' );
+                c( 'Remove cookies', 'warn' );
+                cm.eat( 'test1' );
+                cm.eat( 'test2' );
 
                 state();
 
