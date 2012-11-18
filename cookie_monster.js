@@ -25,7 +25,10 @@
             this.openJar( function( name, value ) {
                 cookies[name] = value;
             } );
-            return cookies;
+            for ( var c in cookies ) {
+                return cookies;
+            }
+            return false;
         },
 
         eat: function( name ) {
