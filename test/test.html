@@ -30,18 +30,24 @@
                 c( 'Set cookies', 'warn' );
                 cm.bake( 'test1', 'test_val1', 1 );
                 cm.bake( 'test2', 'test_val2', 1 );
+                cm.bake( 'test3', 'test_val2', 1 );
 
                 state();
 
                 c( 'Show value of cookies', 'warn' );
                 c( cm.fetch( 'test1' ) );
                 c( cm.fetch( 'test2' ) );
+                c( cm.fetch( 'test3' ) );
                 c( 'Attempt to get value of cookie which does not exist', 'warn' );
                 c( cm.fetch( 'test_does_not_exist' ) );
 
-                c( 'Remove cookies', 'warn' );
+                c( 'Remove first cookie', 'warn' );
                 cm.eat( 'test1' );
-                cm.eat( 'test2' );
+
+                state();
+
+                c( 'Remove all cookies', 'warn' );
+                cm.eatAll();
 
                 state();
 

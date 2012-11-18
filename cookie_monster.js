@@ -21,25 +21,42 @@
         },
 
         fetchAll: function() {
-            var jar = document.cookie.split( /[;,] / );
-            var jar_size = jar.length;
             var cookies = {};
-            if ( jar_size > 1 ) {
-                var cookie;
-                var name;
-                for ( var i = 0; i < jar_size; i++ ) {
-                    cookie = jar[i];
-                    name = /^[^=]*/.exec( cookie )[0];
-                    cookies[name] = cookie.substring( name.length + 1, cookie.length );
-                }
-            }
+            this.openJar( function( name, value ) {
+                cookies[name] = value;
+            } );
             return cookies;
         },
 
         eat: function( name ) {
             this.bake( name, '', -1 );
+        },
+
+        eatAll: function() {
+            this.openJar( function( name ) {
+                this.eat( name );
+            } );
+        },
+
+        openJar: function( fn ) {
+            var jar = document.cookie.split( /[;,] / );
+            var jar_size = jar.length;
+            if ( jar_size > 1 ) {
+                fn = fn || false;
+                var cookie;
+                var name;
+                var value;
+                for ( var i = 0; i < jar_size; i++ ) {
+                    cookie = jar[i];
+                    name = /^[^=]*/.exec( cookie )[0];
+                    value = cookie.substring( name.length + 1, cookie.length );
+                    if ( fn ) {
+                        fn.call( this, name, value );
+                    };
+                }
+            }
         }
 
-    };
+    }
 
 } )( window );
