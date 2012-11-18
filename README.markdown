@@ -26,3 +26,12 @@ Include the script _cookie\_monster.js_. This should make `cookieMonster` availa
 
     cookieMonster.eat( name );
 
+### Remove all cookies
+
+    cookieMonster.eatAll();
+
+### Manipulate all cookies
+
+    cookieMonster.openJar( fn );
+
+Function `fn` will called for each cookie with parameters `name` and `value`, derived from the cookie.
