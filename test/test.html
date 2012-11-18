@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>cookieMonster</title>
+    </head>
+    <body>
+        <script src="../cookie_monster.js"></script>
+        <script>
+            ( function( cm ) {
+
+
+                var c = function( msg, fn ) {
+                    fn = fn || 'log';
+                    if ( typeof console === 'undefined' || typeof console[fn] === 'undefined' ) {
+                        return alert( [ fn, ': ', msg ].join( '' ) );
+                    }
+                    return console[fn]( msg );
+                };
+                var state = function() {
+                    c( '`document.cookie`:', 'info' );
+                    c( document.cookie );
+                };
+
+
+                state();
+
+                c( 'Set cookie', 'warn' );
+                cm.bake( 'test', 'test_val', 1 );
+
+                state();
+
+                c( 'Show cookie value', 'warn' );
+                c( cm.fetch( 'test' ) );
+
+                c( 'Remove cookie', 'warn' );
+                cm.eat( 'test' );
+
+                state();
+
+
+            } )( cookieMonster );
+        </script>
+    </body>
+</html>
